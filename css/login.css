@@ -1,0 +1,206 @@
+.firebase__signin {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.firebase__signin h1 {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--grey);
+    margin-bottom: 1%;
+    opacity: 0;
+    animation: fadeIn 1000ms forwards 200ms ease;
+}
+
+.bottom_svg {
+    position: absolute;
+    bottom: 0%;
+    left: -2%;
+    transform: scale(0.8);
+    opacity: 0;
+    animation: fadeIn 1000ms forwards 750ms ease;
+}
+
+.chat__bubble__right {
+    opacity: 0;
+    animation: fadeIn 1000ms forwards 1250ms ease;
+}
+
+.chat__bubble__left {
+    opacity: 0;
+    animation: fadeIn 1000ms forwards 1000ms ease;
+}
+
+.credentials {
+    position: absolute;
+    top: 3%;
+    right: 2%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 150ms ease-in-out;
+    opacity: 0;
+    animation: fadeIn 1000ms forwards 1250ms ease;
+}
+
+.credentials h2 {
+    font-size: 0.8rem;
+    font-weight: lighter;
+    color: var(--grey);
+    text-shadow: unset;
+    position: relative;
+}
+
+.credentials__name {
+    color: var(--mainColor);
+    text-decoration: underline;
+}
+
+.credentials i {
+    font-size: 1.3rem;
+    text-shadow: 0px 1px 0px var(--mainColor), 0px -1px 0px var(--mainColor), 1px 0px 0px var(--mainColor), -1px 0px 0px var(--mainColor);
+    color: white;
+    transition: all 150ms ease-in-out;
+}
+
+/* initial state of auth ui */
+
+.firebase__auth__wrapper {
+    opacity: 0;
+    animation: fadeIn 1000ms forwards 500ms ease;
+}
+
+.firebaseui-card-content button {
+    border-radius: 50px;
+    font-weight: lighter;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.firebaseui-idp-text {
+    padding-left: 26px;
+}
+
+.firebaseui-idp-password {
+    background-color: #7161ef!important;
+    cursor: pointer;
+}
+
+.firebaseui-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1rem!important;
+}
+
+#firebase-auth-container {
+    cursor: pointer;
+}
+
+/* email and password login state styles */
+
+.mdl-textfield__input {
+    font-family: 'Nunito Sans';
+}
+
+.firebaseui-card-actions {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    cursor: pointer;
+    transition: all 150ms ease-in-out!important;
+}
+
+.mdl-button {
+    font-family: 'Nunito Sans';
+    text-transform: initial;
+}
+
+.mdl-button--raised.mdl-button--colored {
+    background: var(--mainColor);
+    border-radius: 50px;
+}
+
+.mdl-button--raised.mdl-button--colored:hover {
+    background: var(--grey);
+    border-radius: 50px;
+}
+
+.mdl-button--primary.mdl-button--primary {
+    color: var(--grey);
+    border-radius: 50px;
+}
+
+.mdl-textfield__label {
+    font-family: 'Nunito Sans';
+    font-weight: 300;
+}
+
+.mdl-button--raised.mdl-button--colored:focus:not(:active) {
+    background-color: var(--grey);
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.firebaseui-textfield.mdl-textfield .firebaseui-label::after {
+    background-color: var(--grey);
+}
+
+.firebaseui-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.firebaseui-tos-list {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.firebaseui-link {
+    color: var(--grey);
+    font-family: 'Nunito Sans';
+    font-weight: lighter;
+}
+
+.firebaseui-tospp-full-message {
+    margin-top: 5%;
+}
+
+@media (max-width:1024px) {
+    .bottom_svg {
+        bottom: -1%;
+        left: -4%;
+    }
+}
+
+@media (max-width:768px) {
+    svg {
+        display: none;
+    }
+    .credentials {
+        top: unset;
+        bottom: 3%;
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (hover: hover) {
+    button:hover {
+        opacity: 0.8;
+    }
+    .credentials:hover {
+        opacity: 0.8;
+    }
+    .credentials:hover.credentials i {
+        animation: iconFallIn 250ms ease;
+    }
+}
+

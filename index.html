@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/images/icons8-chat-bubble-64.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <!-- firebase  -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <title>The Chatroom</title>
+  </head>
+  <body>
+    <!-- Header -->
+
+    <header id="header" class="header">
+      <h3 class="header__name">
+        Welcome to the chatroom,
+        <span id="firstName" class="col-change"></span>
+      </h3>
+      <div class="header__login-container">
+        <a id="logout" class="links bg-change" href="">Logout </a>
+        <i id="menuButton" class="fas fa-ellipsis-v sidebar__toggle"></i>
+      </div>
+    </header>
+
+    <!-- Main section -->
+
+    <section id="loading__section">
+      <div class="main">
+        <img src="./images/Ellipsis-1s-204px.gif" alt="" />
+      </div>
+    </section>
+
+    <div hidden id="mainWrapper">
+      <section class="main">
+        <div class="main__container">
+          <!-- Chat box -->
+          <div class="main__chatbox">
+            <div id="messageBox" class="main__chatbox__message-box">
+              <div class="message-container-wrapper youwrap">
+                <div class="message-box__message-container you bg-change">
+                  <p class="message-content">You: Hello world</p>
+                </div>
+              </div>
+
+              <div class="message-container-wrapper">
+                <div class="message-box__message-container">
+                  <p class="message-content">
+                    <span class="main-col DM8CqqIjfoSwDJ0ebrVj">Max:</span>
+                    yoooo
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="main__chatbox__input-box">
+              <form autocomplete="off" class="input-box__form">
+                <input
+                  id="messageInput"
+                  type="text"
+                  placeholder="Write a message"
+                />
+                <button id="messageBtn">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- SIDEBAR -->
+
+          <div id="sidebar" class="main__sidebar">
+            <div class="sidebar__header">
+              <div class="sidebar__username__container">
+                <h2 id="displayName"></h2>
+                <img
+                  class="sidebar__header__img"
+                  src="/images/unnamed.gif"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <div class="sidebar__main">
+              <div class="sidebar__main__title-box">
+                <div class="dot"></div>
+                <h2>Users Online <span id="userCount"></span></h2>
+              </div>
+              <div id="userOnlineBox" class="sidebar__online-box">
+                <!-- <div class="online-box__user-container">
+                  <i class="fas fa-user-circle"></i>
+                  <h2>Max Scragg</h2>
+                </div>
+                <div class="online-box__user-container">
+                  <i class="fas fa-user-circle"></i>
+                  <h2>Gaz Griffiths</h2>
+                </div> -->
+              </div>
+            </div>
+
+            <div class="sidebar__footer">
+              <input
+                type="color"
+                id="favcolor"
+                name="favcolor"
+                value="#7161ef"
+              />
+              <label class="sidebar__footer__text" for="favcolor"
+                >Select your favorite color, other users will see this color
+                associated with you in the chat, can be changed any time.</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Main-container end -->
+
+        <!-- Error message -->
+
+        <div id="errorMsg" class="errormsg__container">
+          <h2 class="col-change">Error</h2>
+          <p>An empty message cannot be sent.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="sidebar__toggle" id="frostedBg"></div>
+
+    <!-- Scripts -->
+
+    <script src="firebase.js"></script>
+
+    <script type="module" src="/javascript/app.js"></script>
+  </body>
+</html>

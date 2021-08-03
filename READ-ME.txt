@@ -1,0 +1,25 @@
+
+
+PROJECT SETUP _________
+
+
+COMPONENTS JS FOLDER & FILES - These seperate out front end functionality and consist of purely DOM manipulation code, which can then be referenced within APP.JS inline with main business logic when required.
+
+APP.JS - Contains main business logic and functionality, combining functions from COMPONENTS JS FILES with FIREBASE AUTH AND FIRESTORE logic
+
+
+
+BUSINESS LOGIC _________
+
+
+USER - 
+
+COLOR PICKER - 
+
+CHAT ROOM
+
+
+
+
+
+
