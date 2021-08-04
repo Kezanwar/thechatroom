@@ -86,7 +86,7 @@ function initializeUser(userID) {
     // register user into DB 
       users.doc(userID).set({
         name: currentUser.displayName,
-        color: '',
+        color: "#7161ef",
         id: userID
       });
       // populate UI
@@ -121,6 +121,8 @@ async function asyncInitializeUser(userID) {
   }
 };
 
+// <----------------- Listening for changes to isOnline within user doc -------------------->
+
 
 // Get all online users from database - must look at ommitting as much of this functionality from client side as possible and handle it server side with Firebase cloud functions once the app scales.
 
@@ -133,30 +135,44 @@ function getAllOnlineUsers () {
         snapshot.docChanges().forEach((change) => {
           
           if (change.type === "added") {
-              usersOnlineCount.innerText = "( " + snapshot.size + " )";
+
+            usersOnlineCount.innerText = "( " + snapshot.size + " )";
+            
             console.log(change.doc.data());
             appendUsers(change.doc.data().id, change.doc.data().name, change.doc.data().color);
-                const classHtmlCollection = document.getElementsByClassName(change.doc.data().id);
-        const classArray = Array.from(classHtmlCollection);
+
+            const classHtmlCollection = document.getElementsByClassName(change.doc.data().id);
+            const classArray = Array.from(classHtmlCollection);
+
             classArray.forEach((element) => {
               element.style.color = change.doc.data().color;
             });
-            }
+
+          };
+          
           if (change.type === "modified") {
-              usersOnlineCount.innerText = "( " + snapshot.size + " )";
+
+            usersOnlineCount.innerText = "( " + snapshot.size + " )";
+            
             console.log(change.doc.data(), "changed");
-              const classHtmlCollection = document.getElementsByClassName(change.doc.data().id);
-        const classArray = Array.from(classHtmlCollection);
+            
+            const classHtmlCollection = document.getElementsByClassName(change.doc.data().id);
+            const classArray = Array.from(classHtmlCollection);
             classArray.forEach((element) => {
               element.style.color = change.doc.data().color;
-              });
-            }
+            });
+            
+          };
+
           if (change.type === "removed") {
+
             usersOnlineCount.innerText = "( " + snapshot.size + " )";
-           
+            
             console.log(change.doc.data(), "removed");
             document.getElementById(change.doc.data().id).remove();
-            }
+
+          };
+
         });
     });
 
