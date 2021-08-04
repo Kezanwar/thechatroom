@@ -121,7 +121,7 @@ async function asyncInitializeUser(userID) {
   }
 };
 
-// <----------------- Listening for changes to isOnline within user doc -------------------->
+// <---------------- Listening for changes to isOnline within user doc -------------------->
 
 
 // Get all online users from database - must look at ommitting as much of this functionality from client side as possible and handle it server side with Firebase cloud functions once the app scales.
