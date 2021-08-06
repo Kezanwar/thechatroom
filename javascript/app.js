@@ -254,7 +254,7 @@ function newColorToDB() {
     // check for color readbility -> convert new hex to RGB and get the sum of RGB
     const sumOfRGB = hexToRGB();
 
-    if  (sumOfRGB > 650) {
+    if  (sumOfRGB > 620) {
 // if the sum is greater 650 -> retrieve the last accepted color stored in DB and throw an error to the UI
 
       const users = db.collection('users');
@@ -320,9 +320,18 @@ window.addEventListener('DOMContentLoaded', () => {
 // Write and test new functions here before modularization 
 
 
+function getMessages() {
 
 
 
+// get messages, use order by desc and limit to 50?
+
+
+
+}
+
+
+// Configure ON DISCONNECT functionality.
 
 
 
