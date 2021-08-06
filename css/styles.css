@@ -370,6 +370,7 @@ input:focus {
 .online-box__user-container i {
     color: grey;
     font-size: 0.8rem;
+    transition: all 300ms ease-in-out;
 }
 
 .sidebar__footer {
