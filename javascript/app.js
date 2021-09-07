@@ -60,7 +60,7 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-// initializing user function returning a promise with the userID passed in as argument. Promise checks if the user is registered or not in the database, initalizes the UI accordingly... (called in the above listening to auth change function) 
+// initializing user function returning a promise with the userID passed in as argument. Promise checks if the user is registered or not in the database, initalizes the UI accordingly... (called in the below sync await function that awaits this to resolve before revealing UI - this is then called in above function listening to auth login) 
 
 
 function initializeUser(userID) {
