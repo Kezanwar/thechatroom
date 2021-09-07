@@ -10,7 +10,7 @@ const errorMsg = document.getElementById('errorMsg');
 
 // -------------- Appending message to dom function, called inside sendmessage event listener in App.js --------------
 
-export function sendMessageToDOM(msg) {
+export function sendYourMessageToDOM(msg) {
   
   const msgWrapper = document.createElement('div');
   msgWrapper.classList.add('message-container-wrapper', 'youwrap');
