@@ -1,7 +1,7 @@
 // ------------------ Import Functions and Database Object -----------------
 
 import sidebarFunctionality from "./components/sidebar.js"
-import { sendMessageToDOM, sendErrorMsg} from "./components/message.js"
+import { sendYourMessageToDOM, sendErrorMsg} from "./components/message.js"
 import { colorPickerInput, colorPickerToUI, hexToRGB } from "./components/colorPicker.js"
 
 // Import initialized Database from Firebase
@@ -51,6 +51,7 @@ firebase.auth().onAuthStateChanged((user) => {
     const uid = user.uid;
     sendIsOnline(uid);
     asyncInitializeUser(uid);
+    return;
   }  
    else {
     // User is signed out
@@ -128,13 +129,17 @@ async function asyncInitializeUser(userID) {
 
 // As retrieving a high amount of documents from the Database client side is an inneficient solution both in terms of usability and pay as you go Firebase costs?
 
-function getAllOnlineUsers () {
+function getAllOnlineUsers() {
+  
+  // accessing a snapshot of all users with field isOnline = true
 
   db.collection('users').where("isOnline", "==", true).onSnapshot((snapshot) => {
 
         snapshot.docChanges().forEach((change) => {
           
           if (change.type === "added") {
+
+          // on initialization as well as listening for new online users
 
             usersOnlineCount.innerText = "( " + snapshot.size + " )";
             
@@ -152,6 +157,8 @@ function getAllOnlineUsers () {
           
           if (change.type === "modified") {
 
+            // if a change occurs to the users document such as color preference is updated then send this update to the UI
+
             usersOnlineCount.innerText = "( " + snapshot.size + " )";
             
             console.log(change.doc.data(), "changed");
@@ -165,6 +172,8 @@ function getAllOnlineUsers () {
           };
 
           if (change.type === "removed") {
+
+            // If user goes offline remove from online users section
 
             usersOnlineCount.innerText = "( " + snapshot.size + " )";
             
@@ -183,6 +192,8 @@ function getAllOnlineUsers () {
 
 function appendUsers(userID, name, color) {
 
+  // appends the online user to the DOM 
+
 
     const userOnlineDiv = document.createElement('div');
     userOnlineDiv.classList.add("online-box__user-container");
@@ -195,8 +206,9 @@ function appendUsers(userID, name, color) {
     userOnlineIcon.classList.add("fas", "fa-user-circle", userID);
     userOnlineIcon.style.color = color;
 
+  userOnlineDiv.appendChild(userOnlineH2);
     userOnlineDiv.appendChild(userOnlineIcon);
-    userOnlineDiv.appendChild(userOnlineH2);
+    
 
     userOnlineContainer.appendChild(userOnlineDiv);
   
@@ -211,6 +223,7 @@ msgButton.addEventListener('click', (event) => {
   
   event.preventDefault();
   const msg = msgInput.value;
+  const user = firebase.auth().currentUser;
   
   if (msg.length < 1) {
     // Send an error if the message is empty
@@ -218,15 +231,122 @@ msgButton.addEventListener('click', (event) => {
     return
   };
 
-  sendMessageToDOM(msg);
-  // import from message.js - send the new message to the DOM with colours currently in color picker
-
-// TO DO - Send message to database
+  sendYourMessageToDOM(msg);
+   // import from message.js - send the new message to the DOM with colours currently in color picker
+  
+  sendMsgtoDB(msg, user.uid);
+ 
 
   msgInput.value = '';
   return
 
 });
+
+function sendMsgtoDB(msg, userID) {
+
+  // creates a new document within messages collection 
+    
+  const messagesCollection = db.collection('messages');
+  const timeStampNow = firebase.firestore.Timestamp.now();
+  // sets a timestamp within firestore
+
+  messagesCollection.doc(userID + "-" + timeStampNow.toDate()).set({
+        id: userID,
+        message: msg,
+        timeStamp: timeStampNow
+      });
+  
+
+}
+  
+// Getting new messages and appending them to the DOM ------ function called in DOM Content Loaded
+
+
+function snapshotNewMsgs() {
+
+  // wrapped in a function to call within dom content loaded, also adds a layer of security within clients browser
+
+db.collection("messages")
+  .orderBy("timeStamp", "desc").limit(1).onSnapshot((snapshot) => {
+    
+    snapshot.forEach((message) => {
+      
+      const user = firebase.auth().currentUser.uid;
+      const newMsg = message.data();
+      const messageDateInSeconds = newMsg.timeStamp.seconds;
+      const currentDateTS = firebase.firestore.Timestamp.fromDate(new Date()).seconds - 10;
+      // creates a timestamp from a javascript date value
+      
+      if (newMsg.id === user) {
+        // if message is from the current user then return
+        return
+      }
+
+      if (messageDateInSeconds < currentDateTS) {
+        // snapshot will trigger onload as well as act as a listener, therefore this checks if the message was sent in the last 10 seconds when the UI is loaded if it isnt then return
+      
+        return
+     }
+      
+      else {
+
+      // send to dom 
+        sendOtherUserMsg(newMsg.message, newMsg.id)
+       
+      }
+
+
+   
+    })
+  });
+}
+
+
+function sendOtherUserMsg(msg, id) {
+
+  // get the user from the DB with the message ID for their username and color
+
+  const userDocument = db.collection('users').doc(id);
+
+  userDocument.get().then((doc) => {
+  
+    if (doc.exists) {
+
+// append the users message to the dom with the correct attributes and stylings
+
+    const username = doc.data().name;
+    const color = doc.data().color;
+
+    const msgWrapper = document.createElement('div');
+    msgWrapper.classList.add('message-container-wrapper');
+
+  const msgContainer = document.createElement('div');
+  msgContainer.classList.add('message-box__message-container');
+
+  
+   const msgContent = document.createElement('p');
+  msgContent.classList.add('message-content');
+  msgContent.innerHTML = `<span class="main-col ${id}" style="color: ${color};">${username}:</span> ${msg}`
+  
+
+  msgContainer.appendChild(msgContent);
+  msgWrapper.appendChild(msgContainer);
+  
+  msgBox.insertBefore(msgWrapper, msgBox.firstChild);
+
+
+    }
+    
+    else {
+      
+      return
+      
+    }
+    
+});
+
+};
+
 
 
 // -------------------- Logout Button ----------------------
@@ -311,27 +431,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // import from colorPicker.js - checks new color if its ok then sends to DB
 
+
+  snapshotNewMsgs();
+
+  // from above - listens for new message documents written into messages collection and appends them to the DOM
+
 });
 
 
 
 // < -------------- CODE TESTING ENVIRONMENT 🤠🤠 --------------------->
 
-// Write and test new functions here before modularization 
-
-
-function getMessages() {
+// Write and test new snippets of code here before modularization 
 
 
 
-// get messages, use order by desc and limit to 50?
 
 
+// ---------- !! TO DO !!---------  
 
-}
-
-
-// Configure ON DISCONNECT functionality.
+// Configure ON DISCONNECT functionality
+// Wrap all of app.js in IIFE
 
 
 
@@ -342,31 +462,17 @@ function getMessages() {
 
 
 
-
-
   //  -------------- EXAMPLES FOR REFERENCING ---------------
 
-const users = db.collection('users');
+// const users = db.collection('users');
 
-const kezDoc = users.doc('kez');
+// const kezDoc = users.doc('kez');
 
-kezDoc.get().then((doc) => {
-  if (doc.exists) {
-    console.log(doc.data());
-  }
-  else {
-    console.log("No such collection");
-  }
-});
-
-
-
-
-
-  //                TO DO LISTTTTT
-
-  // BEFORE ANY MORE CODE IS WRITTEN - Write out a complete explanation of the project so far in NOTES.
-
-  // PLAN NEXT STEPS - Write out logical next steps of what needs to be done to get it working 
-
-  // CREATE A BACKUP BEFORE PROCEEDING
+// kezDoc.get().then((doc) => {
+//   if (doc.exists) {
+//     console.log(doc.data());
+//   }
+//   else {
+//     console.log("No such collection");
+//   }
+// });
