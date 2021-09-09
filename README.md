@@ -2,7 +2,7 @@
 
 A live chatroom built with Vanilla JS and Firebase Firestore. 
 
-Making this project from scratch really pushed my development skills, particularly my JS and noSQL Database knowledge. I also found my ability to consume and comprehend documentation and turn it into practice improved massively. 
+Making this project from scratch really pushed my development skills, particularly my JS and noSQL Database knowledge. I also found my ability to consume and comprehend developer documentation and turn it into practice improved massively. 
 
 The project highlighted the benefits of using a front end framework such as React, as progressing this vanilla JS web app further than where it is currently would be challenging and unconventional in terms of code architecture.
 
