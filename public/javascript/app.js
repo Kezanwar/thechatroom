@@ -56,7 +56,7 @@ firebase.auth().onAuthStateChanged((user) => {
    else {
     // User is signed out
     // Send to login page
-    window.location.href = "http://127.0.0.1:5500/login.html"
+    window.location.href = "https://thechatroom-kez.web.app/login.html"
   }
 });
 
@@ -349,17 +349,41 @@ function sendOtherUserMsg(msg, id) {
 
 
 
-// -------------------- Logout Button ----------------------
+// -------------------- Logout Button & Beforeunload event ----------------------
 
 
 logoutBtn.addEventListener('click', function () {
 
   // Firebase signout method 
 
+  const user = firebase.auth().currentUser.uid;
+  falseIsOnline(user);
+
+
   firebase.auth().signOut();
 
 
 });
+
+function falseIsOnline(userID) {
+  
+  const isOnline = db.collection('users');
+
+  isOnline.doc(userID).update({
+    isOnline: false,
+  });
+
+};
+
+addEventListener('beforeunload', (event) => {
+  const user = firebase.auth().currentUser.uid;
+  falseIsOnline(user);
+
+
+  firebase.auth().signOut();
+
+
+})
 
 
 // -------------------- Check and Send Colour to Databse -------------------
@@ -430,7 +454,6 @@ window.addEventListener('DOMContentLoaded', () => {
   newColorToDB();
 
   // import from colorPicker.js - checks new color if its ok then sends to DB
-
 
   snapshotNewMsgs();
 

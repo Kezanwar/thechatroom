@@ -550,6 +550,21 @@ input:focus {
 @media (max-width:425px) {
     .main__sidebar {
         width: 75%;
+        left: -100%;
+    }
+    .main__sidebar__move {
+        opacity: 1;
+        left: 0rem;
+    }
+    main {
+        height: 80vh;
+        height: -webkit-fill-available;
+        height: fill-available;
+    }
+    input[type='text'], input[type='number'], textarea {
+        font-size: 16px;
+        color: rgb(244, 244, 244);
+        text-shadow: none;
     }
 }
 
