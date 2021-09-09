@@ -89,7 +89,7 @@ function initializeUser(userID) {
         name: currentUser.displayName,
         color: "#7161ef",
         id: userID,
-        isOnline = true
+        isOnline: true
       });
       // populate UI
       uiDisplayName.innerText = currentUser.displayName;
