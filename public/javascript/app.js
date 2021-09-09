@@ -88,7 +88,8 @@ function initializeUser(userID) {
       users.doc(userID).set({
         name: currentUser.displayName,
         color: "#7161ef",
-        id: userID
+        id: userID,
+        isOnline = true
       });
       // populate UI
       uiDisplayName.innerText = currentUser.displayName;

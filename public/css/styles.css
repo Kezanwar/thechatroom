@@ -15,14 +15,17 @@ html {
     font-family: 'Nunito Sans', sans-serif;
     text-shadow: var(--textShadow);
     margin: 0;
+    /* height: -webkit-fill-available; */
 }
 
 body {
     margin: 0;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background-image: url(/images/Subtle-Prism3.svg);
     background-size: cover;
     width: 100vw;
+    height: 100vh;
+    max-height: -webkit-fill-available;
 }
 
 h2, h1, h3, p {
@@ -54,7 +57,7 @@ h2, h1, h3, p {
 
 .header {
     position: relative;
-    height: 10vh;
+    height: 10%;
     padding: 1rem 3rem 0rem 3rem;
     display: flex;
     align-items: center;
@@ -107,8 +110,12 @@ h2, h1, h3, p {
 
 /* ----------------- Main ---------------*/
 
+#mainWrapper {
+    height: 90%;
+}
+
 .main {
-    height: 90vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -494,6 +501,7 @@ input:focus {
     .main__sidebar {
         width: 40%;
         height: 100vh;
+        max-height: -webkit-fill-available;
         position: absolute;
         opacity: 0;
         left: -70%;
@@ -519,14 +527,17 @@ input:focus {
 
 @media (max-width:768px) {
     .header {
-        height: 12vh;
-        padding: 1.3rem 2rem 1.3rem 2rem;
+        height: 12%;
+        padding: 1.6rem 2rem 1.6rem 2rem;
         box-shadow: 0px 2px 8px rgba(211, 211, 211, 0.295);
         background-color: white;
         z-index: 1;
     }
-    .main {
-        height: 88vh;
+    .header__name {
+        font-size: 1.1rem;
+    }
+    #mainWrapper {
+        height: 88%;
     }
     .main__container {
         width: 100%;
@@ -556,15 +567,22 @@ input:focus {
         opacity: 1;
         left: 0rem;
     }
-    main {
-        height: 80vh;
-        height: -webkit-fill-available;
-        height: fill-available;
+    .input-box__form input {
+        height: 2rem;
     }
-    input[type='text'], input[type='number'], textarea {
+
+    
+    
+    input[type='text'] {
+        /* font-weight: 400; */
         font-size: 16px;
-        color: rgb(244, 244, 244);
-        text-shadow: none;
+        border-radius: unset;
+    }
+    .main__chatbox__message-box {
+        gap: unset;
+    }
+    .message-container-wrapper {
+        margin-top: 0.8rem;
     }
 }
 
