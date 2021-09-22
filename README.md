@@ -8,7 +8,12 @@ The project highlighted the benefits of using a front end framework such as Reac
 
 Another highlight is the benefits of using a back end as a service such as Firebase, a serverless structure is ideal for an application of this size and in turn allowed me to hit the ground running from a development standpoint.
 
-Notes about the project: Anyone can join, The chat doesnt save locally, messages are stored in the DB but chat log is lost when logged out or UI is closed. 
+Notes about the project: 
+
+1: Anyone can join
+2: The chat doesnt save locally
+3: Messages are stored in the DB but chat log is lost when logged out or UI is closed.
+4: The current presence management functionality doesn't handle idle for too long users. Only way of logging out is clicking log out or firing the beforeunload event on certain browsers.
 
 You can view the project here! https://thechatroom-kez.web.app/
 
