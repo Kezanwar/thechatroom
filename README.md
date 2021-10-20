@@ -6,7 +6,7 @@ This project really pushed my development skills, particularly my JS and noSQL D
 
 The project highlighted the benefits of using a front end framework such as React which uses a declarative approach, as progressing this Vanilla JS web app further  than where it is currently would be challenging and unconventional in terms of architecture, organisation and time. This is due to the imperative nature of this particular approach using Vanilla JS.
 
-Another highlight is the benefits of using a back end as a service such as Firebase, a serverless structure is ideal for an application of this size and in turn allowed me to hit the ground running from a development standpoint.
+Another highlight is the benefits of using a back end as a service such as Firebase, a serverless structure is ideal for an application of this size and in turn allowed me to hit the ground running from an infrastructure standpoint.
 
 Notes about the project: 
 
